@@ -1,7 +1,7 @@
 from flask import Flask,  jsonify, request
-import requests
 from collections import ChainMap
 import os
+from utility import make_get_request
 
 app = Flask(__name__)
 
@@ -16,7 +16,7 @@ def get_starships():
     next_url = 'https://swapi.dev/api/starships/?page=1'
     
     while next_url:
-        query_results = requests.get(next_url).json()
+        query_results = make_get_request(next_url)
         results.extend(query_results['results'])
         next_url = query_results['next']
 

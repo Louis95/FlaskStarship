@@ -8,6 +8,9 @@ FlaskStarWar is an application that displaces the list of all starships from sta
 ### Main Files: Project Structure
 
   ```
+  ├── 
+  ├── Procfile
+  ├──  Dockerfile
   ├─- README.md
   ├── app.py *** the main driver of the app.
                     "python app.py" to run after installing dependences
@@ -45,9 +48,19 @@ To start and run the local development server,
   $ flask run
   ```
 
+Using Docker
+
+I'm assuming that you already have docker installed and authenticated
+- Build the docker image
+Run `docker build -t flaskstarship .`
+
+then 
+Run `docker run -it -p 5000:5000 flaskstarship`
+
+you will be able to access the application at `http://0.0.0.0:5000/`
+
 ### Endpoints
 
-https://flaskstarship.herokuapp.com/ | https://git.heroku.com/flaskstarship.git
 
 GET '/'
 - welcome note
@@ -117,3 +130,13 @@ Using the git url obtained from the last step, in terminal run: `git remote add 
 
 #### Push it!
 Push it up! `git push heroku master`
+
+#### Hosted Url
+`https://flaskstarship.herokuapp.com/starships`
+
+
+### Assumptions made
+
+- The [link](https://swapi.co/api/starships/) to SWAPI given in the instructions was broken so I decided to use a different [SWAPI](https://swapi.dev/api/starships/)
+
+- The user will alway to pass a live url. A check could also be implemented to check if the given url is not broken before making the request.
