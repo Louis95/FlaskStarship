@@ -58,14 +58,62 @@ GET '/starships'
    - starships = A list of starships(names and hyperdrive rating) that have hyperdrive rating. Sorted by hyperdrive rating in ascending order.
    - starships_unknown_hyperdrive = A list of starships(just the names) that the hyperdrive rating is unknown.
 
+- sample respons
+
+```
+{
+  "starships": [
+    {
+      "hyperdrive": 0.5, 
+      "name": "Millennium Falcon"
+    }, 
+    {
+      "hyperdrive": 0.5, 
+      "name": "Naboo star skiff"
+    }, 
+    {
+      "hyperdrive": 0.6, 
+      "name": "Republic Assault ship"
+    }, 
+    {
+      "hyperdrive": 0.7, 
+      "name": "J-type diplomatic barge"
+    }, .....],
+    "starships_unknown_hyperdrive": [
+    {
+      "name": "AA-9 Coruscant freighter"
+    }
+  ]
+}
+```
+
 ### Deployment
 
 This guide assumes that you already had gone through the process of installing and authenticating the Heroku Toolbelt.
 
 I'm assumming that you already have heroku installed. If you haven't installed heroku, please check the [installation guide](https://devcenter.heroku.com/articles/heroku-cli)
 
-`web: gunicorn <filename>:<app_name>`
+#### Gunicorn
+
+Gunicorn is a pure-Python HTTP server for WSGI applications. We'll be deploying our applications using the Gunicorn webserver.
+
+First, we need to install gunicorn using  `pip3 install gunicorn`. Next `touch Procfile` to create the file.
+
+Procfile is exceedingly simple. It only needs to include one line to instruct Heroku correctly for us: `web: gunicorn --bind 0.0.0.0:$PORT app:app`
 
 #### Create Your Heroku App
-You can also leave your_app_name empty if you want Heroku to create a randomized name.
 
+In order to create the Heroku app run `heroku create flaskstarship`. The output will include a git _url_ for your Heroku application. Copy this as, we'll use it in a moment.
+
+```
+heroku create flaskstarship
+Creating app... done, ⬢ flaskstarship
+```
+Now if you check your Heroku Dashboard in the browser, you'll see an application by that name. But it doesn't have our code or anything yet - it's completely empty. Let's get our code up there.
+
+#### Add git remote for Heroku to local repository
+
+Using the git url obtained from the last step, in terminal run: `git remote add heroku heroku_git_url`
+
+#### Push it!
+Push it up! `git push heroku master`
